@@ -2195,7 +2195,7 @@
         }
         function gwLoad() {
           return S.user.jwt().then(function (token) {
-            return fetch('/.netlify/git/github/contents/' + encodeURIComponent(GIT_PATH) + '?ref=main', {
+            return fetch('/.netlify/git/github/contents/' + GIT_PATH + '?ref=main', {
               headers: { 'Authorization': 'Bearer ' + token }
             });
           }).then(function (r) {
@@ -2233,7 +2233,77 @@
           if (!S.dirty) setStatus(msg, '');
         }
 
-        /* ---------- Publishing ---------- */
+        /* ---------- Publishing ----------
+           The updated file travels ONLY inside request bodies — never in a
+           URL or query string. (Putting the file data in the request URL is
+           what made Git Gateway answer "414 URI Too Long".)
+           The write goes through the Git Gateway Git Data API — the same
+           routes Decap CMS used on this site: create a blob with the file
+           content, build a tree, create a commit, move the main branch.
+           If those routes are unavailable it falls back to one Contents API
+           PUT — again with the JSON/base64 content in the body only. */
+        function gwJson(token, method, path, bodyObj) {
+          var opts = { method: method, headers: { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' } };
+          if (bodyObj) opts.body = JSON.stringify(bodyObj);
+          return fetch('/.netlify/git/github' + path, opts).then(function (r) {
+            if (!r.ok) throw new Error('Git Gateway returned ' + r.status);
+            return r.json();
+          });
+        }
+        function publishViaGitData(token, payload) {
+          var blobSha = null, commitSha = null;
+          return gwJson(token, 'POST', '/git/blobs', { content: b64EncodeUtf8(payload), encoding: 'base64' })
+            .then(function (blob) {
+              blobSha = blob.sha;
+              return gwJson(token, 'GET', '/branches/main')
+                .then(function (br) { return (br && br.commit && br.commit.sha) || null; })
+                .catch(function () { return null; })
+                .then(function (sha) {
+                  if (sha) return sha;
+                  return gwJson(token, 'GET', '/git/refs/heads/main').then(function (ref) { return ref.object.sha; });
+                });
+            })
+            .then(function (sha) {
+              commitSha = sha;
+              return gwJson(token, 'GET', '/git/commits/' + commitSha);
+            })
+            .then(function (commit) {
+              return gwJson(token, 'POST', '/git/trees', {
+                base_tree: commit.tree.sha,
+                tree: [{ path: GIT_PATH, mode: '100644', type: 'blob', sha: blobSha }]
+              });
+            })
+            .then(function (tree) {
+              return gwJson(token, 'POST', '/git/commits', {
+                message: 'Update website data from Crunches admin panel',
+                tree: tree.sha,
+                parents: [commitSha]
+              });
+            })
+            .then(function (commit) {
+              return gwJson(token, 'PATCH', '/git/refs/heads/main', { sha: commit.sha, force: false });
+            })
+            .then(function () { S.sha = null; });
+        }
+        function publishViaContents(token, payload) {
+          var url = '/.netlify/git/github/contents/' + GIT_PATH;
+          var headers = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
+          return fetch(url + '?ref=main', { headers: headers })
+            .then(function (r) { return r.ok ? r.json() : null; })
+            .then(function (f) { return (f && f.sha) || S.sha || null; })
+            .then(function (sha) {
+              var body = { message: 'Update website data from Crunches admin panel', content: b64EncodeUtf8(payload), branch: 'main' };
+              if (sha) body.sha = sha;
+              return fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
+            })
+            .then(function (r) {
+              if (!r.ok) throw new Error('Git Gateway returned ' + r.status);
+              return r.json();
+            })
+            .then(function (res) {
+              if (res && res.content && res.content.sha) S.sha = res.content.sha;
+            });
+        }
         function publish() {
           if (!S.data) return;
           var btn = $('admPublishBtn');
@@ -2242,23 +2312,13 @@
             return;
           }
           btn.disabled = true;
+          setStatus('Publishing — sending your changes to GitHub.', 'dirty');
           var payload = JSON.stringify(publicData(), null, 2) + '\n';
           S.user.jwt().then(function (token) {
-            var headers = { 'Authorization': 'Bearer ' + token, 'Content-Type': 'application/json' };
-            var url = '/.netlify/git/github/contents/' + encodeURIComponent(GIT_PATH);
-            var getSha = S.sha ? Promise.resolve(S.sha) : fetch(url + '?ref=main', { headers: headers })
-              .then(function (r) { return r.ok ? r.json() : null; })
-              .then(function (f) { return f ? f.sha : null; });
-            return getSha.then(function (sha) {
-              var body = { message: 'Update website data from Crunches admin panel', content: b64EncodeUtf8(payload), branch: 'main' };
-              if (sha) body.sha = sha;
-              return fetch(url, { method: 'PUT', headers: headers, body: JSON.stringify(body) });
+            return publishViaGitData(token, payload).catch(function () {
+              return publishViaContents(token, payload);
             });
-          }).then(function (r) {
-            if (!r.ok) throw new Error('Git Gateway returned ' + r.status);
-            return r.json();
-          }).then(function (res) {
-            if (res && res.content && res.content.sha) S.sha = res.content.sha;
+          }).then(function () {
             S.dirty = false;
             setStatus('Published. Your storefront change was saved to GitHub — Netlify is redeploying now, and the live website will update in about a minute. (Orders & shipments are private and were not included.)', '');
           }).catch(function (err) {
