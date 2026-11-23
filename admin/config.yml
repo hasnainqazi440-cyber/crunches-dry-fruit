@@ -1,0 +1,49 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "assets/uploads"
+public_folder: "/assets/uploads"
+
+collections:
+  - name: "site"
+    label: "Site Settings"
+    files:
+      - name: "site"
+        label: "Site Settings"
+        file: "assets/products.json"
+        fields:
+          - name: whatsapp
+            label: "WhatsApp Number"
+            widget: string
+            default: "923109155388"
+          - name: whatsappDisplay
+            label: "WhatsApp Display Number"
+            widget: string
+            default: "0310 9155388"
+          - name: packSizes
+            label: "Pack Sizes (kg)"
+            widget: list
+            default: [0.25, 0.5, 0.75, 1]
+          - name: products
+            label: "Products"
+            widget: list
+            fields:
+              - name: name
+                label: "Name"
+                widget: string
+              - name: urduName
+                label: "Urdu Name"
+                widget: string
+              - name: pricePerKg
+                label: "Price per Kg (PKR)"
+                widget: number
+              - name: image
+                label: "Image"
+                widget: image
+              - name: description
+                label: "Description"
+                widget: text
+              - name: grade
+                label: "Grade"
+                widget: string
