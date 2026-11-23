@@ -1,0 +1,39 @@
+{
+  "whatsapp": "923109155388",
+  "whatsappDisplay": "0310 9155388",
+  "packSizes": [0.25, 0.5, 0.75, 1],
+  "products": [
+    {
+      "name": "Badam",
+      "urduName": "Almonds",
+      "pricePerKg": 3299,
+      "image": "",
+      "description": "Premium almonds from Gilgit-Baltistan.",
+      "grade": "Premium"
+    },
+    {
+      "name": "Badam Soft Shell",
+      "urduName": "Soft Shell Almonds",
+      "pricePerKg": 3999,
+      "image": "",
+      "description": "Premium soft shell almonds from Gilgit-Baltistan.",
+      "grade": "Premium"
+    },
+    {
+      "name": "Akhrot",
+      "urduName": "Kagazi Walnut",
+      "pricePerKg": 2199,
+      "image": "",
+      "description": "Premium kagazi walnuts from Gilgit-Baltistan.",
+      "grade": "Premium"
+    },
+    {
+      "name": "Dried Khubani",
+      "urduName": "Dried Apricot",
+      "pricePerKg": 2999,
+      "image": "",
+      "description": "Premium dried apricots from Gilgit-Baltistan.",
+      "grade": "Premium"
+    }
+  ]
+}
