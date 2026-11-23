@@ -1,0 +1,119 @@
+{
+  "packSizes": [
+    0.25,
+    0.5,
+    0.75,
+    1
+  ],
+  "products": [
+    {
+      "cardDesc": "Premium Gilgit-Baltistan badam in two styles — classic Badam, and Badam Soft Shell, whose thin shell cracks easily by hand to reveal a big, sweet kernel.",
+      "detailDesc": "Our badam comes from the orchards of Gilgit-Baltistan, where cold nights and pure mountain water give the kernel its rich taste and natural crunch. Every batch is hand-sorted, so you get full, unbroken kernels with no dust and no mixing. Choose classic Badam for everyday richness, or Badam Soft Shell — the shell is so thin it breaks open with your fingers, and the kernel inside comes out whole, big and sweet.",
+      "gradeLabel": "Choose Variety",
+      "id": "almonds",
+      "img": "assets/almonds.jpg",
+      "imgAlt": "Close-up of premium almonds (badam)",
+      "name": "Almonds",
+      "points": [
+        "Hand-sorted full kernels — no broken or mixed pieces",
+        "Soft Shell variety cracks easily by hand — no tool needed",
+        "Naturally crunchy, sweet taste — nothing added",
+        "Rich in protein, fibre and healthy fats",
+        "Packed fresh in clean, sealed food-grade packs"
+      ],
+      "tag": "Soft Shell",
+      "ur": "Badam",
+      "variants": [
+        {
+          "full": "Badam",
+          "name": "Badam",
+          "note": "Classic Gilgit-Baltistan almonds",
+          "price": 3299
+        },
+        {
+          "full": "Badam — Soft Shell",
+          "name": "Badam Soft Shell",
+          "note": "Thin shell, cracks by hand",
+          "price": 3999
+        }
+      ],
+      "welcome": "Handpicked with love from the valleys of Gilgit-Baltistan — every kernel carries the freshness of the mountains, made for your family’s health and happiness.",
+      "status": "Active"
+    },
+    {
+      "cardDesc": "Kagazi walnut — a paper-thin shell that cracks easily by hand, with a full, unbroken kernel inside. Great for brain and heart health.",
+      "detailDesc": "Kagazi akhrot is famous for its paper-thin shell — you can crack it with your fingers, no tool needed — and the kernel inside comes out whole. Our walnuts are selected from Gilgit-Baltistan harvests, checked one by one so there are no empty shells and no blackened kernels, only full, fresh, naturally oily akhrot giri.",
+      "gradeLabel": "Choose Grade",
+      "id": "walnut",
+      "img": "assets/walnuts.jpg",
+      "imgAlt": "Kagazi walnuts — one cracked open showing the full kernel inside",
+      "name": "Walnut",
+      "points": [
+        "Paper-thin shell — cracks easily by hand",
+        "Full, whole kernels — no empty shells",
+        "Naturally rich in omega-3, great for brain health",
+        "Packed fresh in clean, sealed food-grade packs"
+      ],
+      "tag": "Kagazi Shell",
+      "ur": "Akhrot",
+      "variants": [
+        {
+          "full": "Akhrot — Kagazi Walnut",
+          "name": "Kagazi",
+          "note": "Thin shell, cracks by hand",
+          "price": 2199
+        }
+      ],
+      "welcome": "Nature’s own treasure from Gilgit-Baltistan — pure, wholesome and full of strength, bringing goodness and nourishment to every single bite.",
+      "status": "Active"
+    },
+    {
+      "cardDesc": "Soft, naturally sweet dried khubani from Gilgit-Baltistan — ripe apricots, gently dried, keeping their deep golden colour and real fruit taste.",
+      "detailDesc": "Our Dried Khubani is made from ripe Gilgit-Baltistan apricots, dried with care so the pieces stay soft, fleshy and naturally sweet — no added sugar, no artificial colour. The deep golden colour and gentle chew are exactly what real Hunza-side khubani tastes like. Perfect for snacking, desserts, sheer khurma and kids’ lunch boxes.",
+      "gradeLabel": "Choose Type",
+      "id": "apricots",
+      "img": "assets/apricots.jpg",
+      "imgAlt": "Close-up of dried apricots (khushk khubani)",
+      "name": "Dried Apricots",
+      "points": [
+        "Naturally sweet — no added sugar",
+        "Soft, fleshy pieces, never hard or over-dried",
+        "Rich in fibre and iron",
+        "Packed fresh in clean, sealed food-grade packs"
+      ],
+      "tag": "Dried Khubani",
+      "ur": "Dried Khubani",
+      "variants": [
+        {
+          "full": "Dried Khubani (Dried Apricot)",
+          "name": "Dried Khubani",
+          "note": "Naturally sweet, no added sugar",
+          "price": 2999
+        }
+      ],
+      "welcome": "Sun-kissed and naturally sweet — the golden taste of Hunza’s orchards, dried with care so every bite stays soft, pure and full of love.",
+      "status": "Active"
+    }
+  ],
+  "whatsapp": "923109155388",
+  "whatsappDisplay": "0310 9155388",
+  "offers": [],
+  "deals": [],
+  "social": {
+    "facebookHandle": "@crunches.dryfruit",
+    "facebookUrl": "https://www.facebook.com/crunches.dryfruit",
+    "instagramHandle": "@crunches.dryfruit",
+    "instagramUrl": "https://www.instagram.com/crunches.dryfruit",
+    "email": "crunchesdryfruit@gmail.com"
+  },
+  "whatsappMessages": {
+    "generic": "Assalam-o-Alaikum! I want to order from Crunches Dry Fruits.",
+    "single": "Assalam-o-Alaikum! I want to order:\n\n• {product} ({size}) x {qty} — {total}\n\nPayment: Cash on Delivery",
+    "cart": "Assalam-o-Alaikum! I want to order from Crunches Dry Fruits:\n\n{items}\n\nTotal: {total}\nPayment: Cash on Delivery\n\nMy name: \nMy address: "
+  },
+  "settings": {
+    "shopName": "Crunches Dry Fruits",
+    "tagline": "Every Bite Full of Crunch",
+    "panelLogin": true
+  }
+}
